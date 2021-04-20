@@ -33,7 +33,7 @@
                         </a>
 
                         <div class="navbar-dropdown">
-                            <a class="navbar-item" href="{{url("/newmovie")}}">
+                            <a class="navbar-item" href="{{url("/newaircraft")}}">
                                 Add
                             </a>
 

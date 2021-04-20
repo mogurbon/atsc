@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AtcsController;
+use App\Http\Controllers\AirCraftController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,8 +15,8 @@ use App\Http\Controllers\AtcsController;
 |
 */
 Route::get('/', [AtcsController::class, 'index']);
+Route::post('savequeue/', [AtcsController::class,'savequeue']);
+Route::get('/newaircraft',[AirCraftController::class,'newAircraft']);
 
 
-/*Route::get('/', function () {
-    return view('welcome');
-});*/
+

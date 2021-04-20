@@ -18,4 +18,5 @@ class queueatc extends Model
             []
         }'
     ];
+    public $timestamps = false;
 }

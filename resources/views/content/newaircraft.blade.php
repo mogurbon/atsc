@@ -1,6 +1,5 @@
 @extends('main')
 @section('content')
-    <queue></queue>
-
+    <newaircraft></newaircraft>
 
 @endsection
