@@ -29,7 +29,7 @@
 				<span class="icon">
 			      <i class="fa fa-save"></i>
 			    </span>
-                <span>Guardar</span>
+                <span>Save</span>
             </button>
 
         </div>

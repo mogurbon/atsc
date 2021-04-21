@@ -5,7 +5,7 @@
 
             <draggable class="" tag="ul" v-model="list" v-bind="dragOptions" :move="onMove" @start="isDragging=true" @end="isDragging=false">
                 <transition-group type="transition" class="is-outlined" :name="'flip-list'">
-                    <li class="is-primary" v-for="element in list" :key="element.order">
+                    <li class="is-primary" v-for="element in list" :key="element.id">
                         <i class="glyphicon glyphicon-pushpin" @click=" element.fixed=! element.fixed" aria-hidden="true"></i>
                         {{element.name}}
 
@@ -18,7 +18,7 @@
         <div class="column border-danger">
             <draggable element="span" v-model="list2" v-bind="dragOptions" :move="onMove">
                 <transition-group name="no" class="" tag="ul">
-                    <li class="" v-for="element in list2" :key="element.order">
+                    <li class="" v-for="element in list2" :key="element.id">
                         <i class="glyphicon glyphicon-pushpin" @click=" element.fixed=! element.fixed" aria-hidden="true"></i>
                         {{element.name}}
                         <span class="badge">{{element.order}}</span>
@@ -77,21 +77,39 @@
 
                 events: [],
                 list:[
-                    {'order':1, 'name':'aircracft1', 'type':'cargo', 'size':'large'},
+                    /*{'order':1, 'name':'aircracft1', 'type':'cargo', 'size':'large'},
                     {'order':2,'name':'aircracft2', 'type':'emergency', 'size':'large'},
                     {'order':3,'name':'aircracft3', 'type':'passenger', 'size':'small'},
                     {'order':4,'name':'aircracft3', 'type':'passenger', 'size':'large'},
-                    {'order':5,'name':'aircracft3', 'type':'passenger', 'size':'small'}
+                    {'order':5,'name':'aircracft3', 'type':'passenger', 'size':'small'}*/
                 ]
 
             }
 
         },
         mounted () {
-
+            this.getaircrafts()
 
         },
         methods:{
+            getaircrafts(){
+                let url = '/aircrafts/';
+                this.axios.get(url)
+                    .then(res => {
+
+                        this.list
+                        for (var i = res.data.length - 1; i >= 0; i--) {
+                            let aircraft = {}
+                            let data = res.data[i]
+                            aircraft.id = data.id
+                            aircraft.name = data.name
+                            aircraft.type_id = data.type_id
+                            aircraft.size_id = data.size_id
+
+                            this.list.push(aircraft)
+                        }
+                    })
+            },
 
             orderList() {
                 this.list = this.list.sort((one, two) => {

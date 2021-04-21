@@ -2023,36 +2023,38 @@ var message = ["vue.draggable", "draggable", "component", "for", "vue.js 2.0", "
       isDragging: false,
       delayedDragging: false,
       events: [],
-      list: [{
-        'order': 1,
-        'name': 'aircracft1',
-        'type': 'cargo',
-        'size': 'large'
-      }, {
-        'order': 2,
-        'name': 'aircracft2',
-        'type': 'emergency',
-        'size': 'large'
-      }, {
-        'order': 3,
-        'name': 'aircracft3',
-        'type': 'passenger',
-        'size': 'small'
-      }, {
-        'order': 4,
-        'name': 'aircracft3',
-        'type': 'passenger',
-        'size': 'large'
-      }, {
-        'order': 5,
-        'name': 'aircracft3',
-        'type': 'passenger',
-        'size': 'small'
-      }]
+      list: [
+        /*{'order':1, 'name':'aircracft1', 'type':'cargo', 'size':'large'},
+        {'order':2,'name':'aircracft2', 'type':'emergency', 'size':'large'},
+        {'order':3,'name':'aircracft3', 'type':'passenger', 'size':'small'},
+        {'order':4,'name':'aircracft3', 'type':'passenger', 'size':'large'},
+        {'order':5,'name':'aircracft3', 'type':'passenger', 'size':'small'}*/
+      ]
     };
   },
-  mounted: function mounted() {},
+  mounted: function mounted() {
+    this.getaircrafts();
+  },
   methods: {
+    getaircrafts: function getaircrafts() {
+      var _this = this;
+
+      var url = '/aircrafts/';
+      this.axios.get(url).then(function (res) {
+        _this.list;
+
+        for (var i = res.data.length - 1; i >= 0; i--) {
+          var aircraft = {};
+          var data = res.data[i];
+          aircraft.id = data.id;
+          aircraft.name = data.name;
+          aircraft.type_id = data.type_id;
+          aircraft.size_id = data.size_id;
+
+          _this.list.push(aircraft);
+        }
+      });
+    },
     orderList: function orderList() {
       this.list = this.list.sort(function (one, two) {
         return one.order - two.order;
@@ -8373,7 +8375,7 @@ var render = function() {
           attrs: { disabled: _vm.disabledButton },
           on: { click: _vm.save }
         },
-        [_vm._m(0), _vm._v(" "), _c("span", [_vm._v("Guardar")])]
+        [_vm._m(0), _vm._v(" "), _c("span", [_vm._v("Save")])]
       )
     ]),
     _vm._v(" "),
@@ -8452,7 +8454,7 @@ var render = function() {
               _vm._l(_vm.list, function(element) {
                 return _c(
                   "li",
-                  { key: element.order, staticClass: "is-primary" },
+                  { key: element.id, staticClass: "is-primary" },
                   [
                     _c("i", {
                       staticClass: "glyphicon glyphicon-pushpin",
@@ -8506,7 +8508,7 @@ var render = function() {
               "transition-group",
               { attrs: { name: "no", tag: "ul" } },
               _vm._l(_vm.list2, function(element) {
-                return _c("li", { key: element.order }, [
+                return _c("li", { key: element.id }, [
                   _c("i", {
                     staticClass: "glyphicon glyphicon-pushpin",
                     attrs: { "aria-hidden": "true" },
