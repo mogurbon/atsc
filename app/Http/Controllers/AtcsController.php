@@ -29,14 +29,14 @@ class AtcsController extends Controller
 
         $queueatc->save();
 
-        #var_dump($queueatc->queue);
+
 
 
 
 
 
         event(new QueueSaved($queueatc));
-
+        return queueatc::all();
     }
 
 }

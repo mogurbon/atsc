@@ -14,6 +14,12 @@ Vue.use(VueAxios, axios);
 
 import { localize } from 'vee-validate';
 import es from 'vee-validate/dist/locale/es.json';
+import Toasted from 'vue-toasted';
+
+
+
+Vue.use(Toasted)
+
 
 
 localize('es', es);

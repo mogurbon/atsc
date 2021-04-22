@@ -17,6 +17,7 @@ use App\Http\Controllers\AirCraftController;
 Route::get('/', [AtcsController::class, 'index']);
 Route::post('savequeue/', [AtcsController::class,'savequeue']);
 Route::get('/newaircraft',[AirCraftController::class,'newAircraft']);
+Route::post('/aircraft',[AirCraftController::class,'store']);
 Route::get('aircrafts',[AirCraftController::class,'getAirCrafts']);
 
 

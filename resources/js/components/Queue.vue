@@ -2,7 +2,7 @@
     <div class="columns">
 
         <div class="column">
-
+            <h5 class="title is-5">Aircraft</h5>
             <draggable class="" tag="ul" v-model="list" v-bind="dragOptions" :move="onMove" @start="isDragging=true" @end="isDragging=false">
                 <transition-group type="transition" class="is-outlined" :name="'flip-list'">
                     <li class="is-primary" v-for="element in list" :key="element.id">
@@ -16,6 +16,7 @@
         </div>
 
         <div class="column border-danger">
+            <h5 class="title is-5">Queue</h5>
             <draggable element="span" v-model="list2" v-bind="dragOptions" :move="onMove">
                 <transition-group name="no" class="" tag="ul">
                     <li class="" v-for="element in list2" :key="element.id">
@@ -33,14 +34,12 @@
 				<span class="icon">
 			      <i class="fa fa-save"></i>
 			    </span>
-                <span>Guardar</span>
+                <span>Save</span>
             </button>
         <!--<pre>{{listString}}</pre>-->
         </div>
 
-       <!-- <div class="column">
-            <pre>{{list2String}}</pre>
-        </div>-->
+
         <br/>
 
     </div>
@@ -77,11 +76,7 @@
 
                 events: [],
                 list:[
-                    /*{'order':1, 'name':'aircracft1', 'type':'cargo', 'size':'large'},
-                    {'order':2,'name':'aircracft2', 'type':'emergency', 'size':'large'},
-                    {'order':3,'name':'aircracft3', 'type':'passenger', 'size':'small'},
-                    {'order':4,'name':'aircracft3', 'type':'passenger', 'size':'large'},
-                    {'order':5,'name':'aircracft3', 'type':'passenger', 'size':'small'}*/
+
                 ]
 
             }
@@ -97,7 +92,7 @@
                 this.axios.get(url)
                     .then(res => {
 
-                        this.list
+
                         for (var i = res.data.length - 1; i >= 0; i--) {
                             let aircraft = {}
                             let data = res.data[i]
@@ -124,9 +119,23 @@
                 );
             },
             save(){
-                return this.axios.post('/savequeue', {'queue':this.list2}).then(response => {
+                return this.axios.post('/savequeue', {'queue':this.list2}).then(res => {
+                    let listord=[];
+                    for (var i = res.data.length - 1; i >= 0; i--) {
+                        let aircraft = {}
+                        let data = res.data[i]
+                        aircraft.id = data.id
+                        aircraft.name = data.name
+                        aircraft.type_id = data.type_id
+                        aircraft.size_id = data.size_id
 
+                        listord.push(aircraft)
+                    }
+                    this.list2 = listord;
 
+                    let myToast = this.$toasted.show('saved');
+
+                    myToast.goAway(1500);
                 })
             }
 

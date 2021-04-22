@@ -5,6 +5,10 @@
 
 
             <div class="field">
+                <label class="label">Name</label>
+                <div class="control">
+                    <input class="input" type="text" placeholder="Text input" v-model="aircraft.name">
+                </div>
                 <label class="label">Size</label>
                 <div class="control">
 
@@ -71,6 +75,7 @@
                 aircraft: {
                     size_id: '',
                     type_id: '',
+                    name:''
 
                 },
                 disabledButton: false,
@@ -80,33 +85,12 @@
         },
         mounted () {
 
-            this.getGenres();
+
         },
         methods:{
-            getGenres()
-            {
 
-                let url = '/genres/';
-                this.axios.get(url)
-                    .then(res => {
-
-                        this.events = []
-                        for (var i = res.data.length - 1; i >= 0; i--) {
-                            let genre = {}
-                            let data = res.data[i]
-                            genre.id = data.id
-                            genre.name = data.name
-
-                            this.events.push(genre)
-                        }
-
-
-
-
-                    })
-            },
             save () {
-                return this.axios.post('/movies', this.movie).then(response => {
+                return this.axios.post('/aircraft', this.aircraft).then(response => {
 
                     window.location.href = "/";
                 })

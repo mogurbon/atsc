@@ -13,15 +13,19 @@
     <header>
 
         <nav class="navbar" role="navigation" aria-label="dropdown navigation">
-            <div class="navbar-brand">
+           {{-- <div class="navbar-brand">
 
                     <img src="https://www.mend.com/wp-content/uploads/2020/08/logo.png"  width="120" height="100">
 
-                <div class="navbar-burger burger" data-target="navbarExampleTransparentExample">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
+
+
+
+            </div>
+--}}
+
+            <div class="navbar-item">
+
+                <h1 class="title">Drag Aircraft to Queue and save</h1>
             </div>
             <div id="navbarExampleTransparentExample" class="navbar-menu">
                 <div class="navbar-end">
